@@ -49,9 +49,9 @@ $ teo copy.c ../TT.teo TT-out.teo
     - ここから本番。今年はパノラマ画像生成まででいいらしいのでここまでで終わり
 
 # 参考文献
-- [TEOリポジトリ](http://teo.osdn.jp/) -> http://teo.osdn.jp/
-- [学内(研究室内)用](http://iim.cs.tut.ac.jp/member/sugaya/TEO/) -> http://iim.cs.tut.ac.jp/member/sugaya/TEO/
-- [学外用](http://teo.osdn.jp/doc/TeoProgrammingGuide/index.html) -> http://teo.osdn.jp/doc/TeoProgrammingGuide/index.html
+- [TEOリポジトリ](http://teo.osdn.jp/)
+- [学内(研究室内)用](http://iim.cs.tut.ac.jp/member/sugaya/TEO/)
+- [学外用](http://teo.osdn.jp/doc/TeoProgrammingGuide/index.html)
 
 # contact
 [@TT_beginner](https://twitter.com/tt_beginner)
