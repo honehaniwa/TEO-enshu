@@ -21,16 +21,9 @@ $ ./teo.sh copy.c TT.teo TT-out.teo
 ```
 
 ## おまけ
-`~/.bashrc(/.zshrc)`用(わかる人向け)
-(もし知りたかったら[ここ](https://qiita.com/yutat93/items/b5bb9c0366f21bcbea62)見て)
-```sh
-teo() {
-    echo compile $1
-    gcc $1 -I/usr/local/include -L/usr/local/lib -lteo -Wall -DTEO_DEBUG_ALL
-    echo run source to ${@:2:($#-2)}
-    ./a.out ${@:2:($#-2)}
-}
-```
+`~/.bashrc(/.zshrc)`用(わかる人向け)<br>
+(もし知りたかったら[ここ](https://qiita.com/yutat93/items/b5bb9c0366f21bcbea62)見て)<br>
+<script src="https://gist-it.appspot.com/https://github.com/honehaniwa/TEO-enshu/blob/main/teo_rc.sh"></script>
 
 - 例: 3の`copy.c`実行方法
 ```sh
