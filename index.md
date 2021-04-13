@@ -21,9 +21,16 @@ $ ./teo.sh copy.c TT.teo TT-out.teo
 ```
 
 ## おまけ
-`~/.bashrc(/.zshrc)`用(わかる人向け)<br>
-(もし知りたかったら[ここ](https://qiita.com/yutat93/items/b5bb9c0366f21bcbea62)見て)<br>
-<script src="https://gist-it.appspot.com/https://github.com/honehaniwa/TEO-enshu/blob/main/teo_rc.sh"></script>
+`~/.bashrc(/.zshrc)`用(わかる人向け)
+(もし知りたかったら[ここ](https://qiita.com/yutat93/items/b5bb9c0366f21bcbea62)見て)
+```sh
+teo() {
+    echo compile $1
+    gcc $1 -I/usr/local/include -L/usr/local/lib -lteo -Wall -DTEO_DEBUG_ALL
+    echo run source to ${@:2:($#-2)}
+    ./a.out ${@:2:($#-2)}
+}
+```
 
 - 例: 3の`copy.c`実行方法
 ```sh
@@ -42,9 +49,9 @@ $ teo copy.c ../TT.teo TT-out.teo
     - ここから本番。今年はパノラマ画像生成まででいいらしいのでここまでで終わり
 
 # 参考文献
-- TEOリポジトリ
-    - http://teo.osdn.jp/
-- 学内(研究室内)用
-    - http://iim.cs.tut.ac.jp/member/sugaya/TEO/
-- 学外用
-    - http://teo.osdn.jp/doc/TeoProgrammingGuide/index.html
+- [TEOリポジトリ](http://teo.osdn.jp/) -> http://teo.osdn.jp/
+- [学内(研究室内)用](http://iim.cs.tut.ac.jp/member/sugaya/TEO/) -> http://iim.cs.tut.ac.jp/member/sugaya/TEO/
+- [学外用](http://teo.osdn.jp/doc/TeoProgrammingGuide/index.html) -> http://teo.osdn.jp/doc/TeoProgrammingGuide/index.html
+
+# contact
+[@TT_beginner](https://twitter.com/tt_beginner)
