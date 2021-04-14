@@ -8,7 +8,7 @@ static TEOIMAGE* YCrCb(TEOIMAGE *src) {
     TEOIMAGE *dst;
     int x, y;
     TEO_UINT8 r, g, b;
-    TEO_FLOAT64 y, Cr, Cb;
+    TEO_FLOAT64 Y, Cr, Cb;
 
     dst = TeoAllocImage(TeoWidth(src),
                         TeoHeight(src),
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]){
                               TeoHeight(src_img),
                               TeoXoffset(src_img),
                               TeoYoffset(src_img),
-                              Teo_FLOAT,
+                              TEO_FLOAT,
                               64,
                               3,
                               1);
