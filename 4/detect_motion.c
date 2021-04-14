@@ -5,7 +5,7 @@
 extern char TEO_ERROR_MESSAGE[];
 
 static void f_and_image(TEOIMAGE *src1, TEOIMAGE *src2,
-                      TEOIMAGE *xor,TEOIMAGE *dst) {
+                      TEOIMAGE *color,TEOIMAGE *dst) {
     TEO_UINT8 val1, val2;
     int x, y, p;
 
@@ -15,13 +15,13 @@ static void f_and_image(TEOIMAGE *src1, TEOIMAGE *src2,
             val2 = TeoGetPixel(src2, x, y, 0, TEO_UINT8);
 
             if(val1 && val2) {
-                for(p = 0; p < TeoPlane(xor); p++) {
+                for(p = 0; p < TeoPlane(color); p++) {
                     TeoPutPixel(dst, x, y, p, TEO_UINT8, 
-                                TeoGetPixel(xor, x, y, p, TEO_UINT8));
+                                TeoGetPixel(color, x, y, p, TEO_UINT8));
                 }
             }
             else {
-                for(p = 0; p < TeoPlane(xor); p++) {
+                for(p = 0; p < TeoPlane(color); p++) {
                     TeoPutPixel(dst, x, y, p, TEO_UINT8, 256);
                 }
             }
