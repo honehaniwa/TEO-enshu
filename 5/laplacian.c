@@ -29,7 +29,7 @@ static TEOIMAGE* laplacian(TEOIMAGE *src) {
             sum += (TEO_FLOAT64)TeoGetPixel(src, x+1, y+1, 0, TEO_UINT8);
             sum -= (TEO_FLOAT64)TeoGetPixel(src, x  , y  , 0, TEO_UINT8);
 
-            TeoPutPixel(dst, x, y, 0, TEO_FLOAT64, _STRUCT_MCONTEXT_AVX64_FULL);
+            TeoPutPixel(dst, x, y, 0, TEO_FLOAT64, sum);
         }
     }
 

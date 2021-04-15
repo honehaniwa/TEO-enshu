@@ -46,8 +46,8 @@ static TEOIMAGE* gaussian(TEOIMAGE *src, int sigma) {
                         sum += gauss[y][x] * TeoGetPixel(src, col+x, row+y, p, TEO_UINT8);
                     }
                 }
+                TeoPutPixel(dst, col, row, p, TEO_UINT8, (TEO_UINT8)sum);
             }
-            TeoPutPixel(dst, col, row, p, TEO_UINT8, (TEO_UINT8)sum);
         }
     }
 
@@ -65,9 +65,9 @@ static TEOIMAGE* gaussian(TEOIMAGE *src, int sigma) {
 int main(int argc, char* argv[]){
     TEOFILE *src_teofp, *dst_teofp;
     TEOIMAGE *src_img, *dst_img;
-    int sigma
+    int sigma;
 
-    if (argc != 2) {
+    if (argc != 3) {
         fprintf(stderr, "Usage: %s in.teo #sigma\n", argv[0]);
         exit(1);
     }
