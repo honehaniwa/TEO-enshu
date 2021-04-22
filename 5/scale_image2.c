@@ -5,7 +5,7 @@
 
 extern char TEO_ERROR_MESSAGE[];
 
-static TEO_UINT8 TeoGetLinerPixcel(TEOIMAGE *img, double x, double y, int plane) {
+static TEO_UINT8 TeoGetLinerPixel(TEOIMAGE *img, double x, double y, int plane) {
     TEO_UINT8 pix[4];
     int ix, iy;
     double a, b;
@@ -19,10 +19,10 @@ static TEO_UINT8 TeoGetLinerPixcel(TEOIMAGE *img, double x, double y, int plane)
     pix[0] = TeoGetPixel(img, ix, iy, plane, TEO_UINT8);
     pix[1] = TeoGetPixel(img, (ix>=TeoYend(img))? ix : ix + 1, iy,
                                       plane, TEO_UINT8);
-    pix[2] = TeoGetPixel(img, ix, (iy>=TeoYend(img))? iy : iy + 1
+    pix[2] = TeoGetPixel(img, ix, (iy>=TeoYend(img))? iy : iy + 1,
                                       plane, TEO_UINT8);
     pix[3] = TeoGetPixel(img, (ix>=TeoYend(img))? ix : ix + 1,
-                              (iy>=TeoYend(img))? iy : iy + 1
+                              (iy>=TeoYend(img))? iy : iy + 1,
                                       plane, TEO_UINT8);
     
     return (TEO_UINT8) ((1.0 - b) * (1.0 - a) * pix[0] +
@@ -33,17 +33,19 @@ static TEO_UINT8 TeoGetLinerPixcel(TEOIMAGE *img, double x, double y, int plane)
 
 static TEOIMAGE* scale_image2(TEOIMAGE *src, TEOIMAGE *dst,
                              double xscale, double yscale) {
-    int row, col, in_row, in_col, p;
+    int row, col, p;
+    double in_row, in_col;
 
     for(row = TeoYstart(dst); row <= TeoYend(dst); row++) {
         for(col = TeoXstart(dst) ; col <= TeoXend(dst); col++) {
             for(p = 0; p < TeoPlane(src); p++) {
+                in_row = ((double)row / yscale);
+                in_col = ((double)col / xscale);
                 for(p = 0; p < TeoPlane(dst); p++) {
                     TeoPutPixel(dst, col, row, p, TEO_UINT8, 
-                                TeoGetLinerPixcel(src, in_col, in_row, p));
+                                TeoGetLinerPixel(src, in_col, in_row, p));
                 }
             }
-            TeoPutPixel(dst, col, row, p, TEO_UINT8, (TEO_UINT8)sum);
         }
     }
 
@@ -93,7 +95,7 @@ int main(int argc, char* argv[]){
 
     // output file
     {
-        dst_teofp = TeoCreateFile("scale_image.teo",
+        dst_teofp = TeoCreateFile("scale_image2.teo",
                               (int) (TeoWidth(src_img) * xscale),
                               (int) (TeoHeight(src_img) * yscale),
                               0,

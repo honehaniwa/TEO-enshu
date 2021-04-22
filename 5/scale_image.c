@@ -16,10 +16,9 @@ static TEOIMAGE* scale_image(TEOIMAGE *src, TEOIMAGE *dst,
                 in_col = (int)(col / xscale);
                 for(p = 0; p < TeoPlane(dst); p++) {
                     TeoPutPixel(dst, col, row, p, TEO_UINT8, 
-                                TeoGetPixcel(src, in_col, in_row, p, TEO_UINT8));
+                                TeoGetPixel(src, in_col, in_row, p, TEO_UINT8));
                 }
             }
-            TeoPutPixel(dst, col, row, p, TEO_UINT8, (TEO_UINT8)sum);
         }
     }
 
