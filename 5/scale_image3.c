@@ -2,23 +2,50 @@
 # include<stdlib.h>
 # include<math.h>
 # include<teo.h>
-# include"scale_image.h"
+#define TeoGetLinearPixel(image,index_x,index_y,index_p,ETYPE)\
+    (((index_x) - ((int)(index_x))) * \
+     (((index_y) - ((int)(index_y))) * \
+      (double)TeoGetPixel(image, \
+                         (((int)(index_x)) == (teo_xend(image))) ? \
+                         ((int)(index_x)) : (((int)(index_x)) + 1), \
+                         (((int)(index_y)) == (teo_yend(image))) ? \
+                         ((int)(index_y)) : (((int)(index_y)) + 1), \
+                         (index_p), ETYPE) + \
+      (1.0 - ((index_y) - ((int)(index_y)))) * \
+      (double)TeoGetPixel(image,\
+                          (((int)(index_x)) == (teo_xend(image))) ? \
+                          ((int)(index_x)) : (((int)(index_x)) + 1), \
+                          ((int)(index_y)), \
+                          (index_p), ETYPE)) + \
+      (1.0 - ((index_x) - ((int)(index_x)))) * \
+                          (((index_y) - ((int)(index_y))) * \
+                          (double)TeoGetPixel(image, \
+                          ((int)(index_x)), \
+                          (((int)(index_y)) == (teo_yend(image))) ? \
+                          ((int)(index_y)) : (((int)(index_y)) + 1), \
+                          (index_p), ETYPE) + \
+      (1.0 - ((index_y) - ((int)(index_y)))) * \
+                          (double)TeoGetPixel(image, \
+                          ((int)(index_x)), ((int)(index_y)), \
+                          (index_p), ETYPE)))
 
 extern char TEO_ERROR_MESSAGE[];
 
 static TEOIMAGE* scale_image(TEOIMAGE *src, TEOIMAGE *dst,
                              double xscale, double yscale) {
-    int row, col, in_row, in_col, p;
+    int row, col, p;
+    double in_row, in_col;
 
     for(row = TeoYstart(dst); row <= TeoYend(dst); row++) {
         for(col = TeoXstart(dst) ; col <= TeoXend(dst); col++) {
             for(p = 0; p < TeoPlane(src); p++) {
+                in_row = ((double)row / yscale);
+                in_col = ((double)col / xscale);
                 for(p = 0; p < TeoPlane(dst); p++) {
                     TeoPutPixel(dst, col, row, p, TEO_UINT8, 
-                                TeoGetLinerPixcel(src, in_col, in_row, p, TEO_UINT8));
+                                TeoGetLinearPixel(src, in_col, in_row, p, TEO_UINT8));
                 }
             }
-            TeoPutPixel(dst, col, row, p, TEO_UINT8, (TEO_UINT8)sum);
         }
     }
 
@@ -68,7 +95,7 @@ int main(int argc, char* argv[]){
 
     // output file
     {
-        dst_teofp = TeoCreateFile("scale_image.teo",
+        dst_teofp = TeoCreateFile("scale_image3.teo",
                               (int) (TeoWidth(src_img) * xscale),
                               (int) (TeoHeight(src_img) * yscale),
                               0,
